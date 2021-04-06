@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>    
+    <link rel="stylesheet" href='style.css'>
+</head>
+<body>
+ <script src="vue.js"></script>
+    <form class="form" id="form" @submit.prevent="submitForm">
+
+        <div class="form__block_home block">
+          <div class="input-block">    
+            <label class="form__name">Индекс</label>    
+            <input  class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Страна</label>    
+            <input  class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Область</label>    
+            <input  class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Город*</label>    
+            <input   v-module='form.city' class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Улица</label>    
+            <input  class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Дом</label>    
+            <input  class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+        </div>
+        <div class="form__block_doc block">
+          <div class="input-block">
+            <label class="form__name">Тип документа*</label>    
+            <select class="form__name_input">
+              <option>Паспорт</option>
+              <option>Свидетельство о рождении</option>
+              <option>Вод. удостоверения</option>
+            </select>
+            <span class="form__name_error">Ошибка</span>
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Серия</label>    
+            <input  class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Номер</label>    
+            <input  class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Кем выдан</label>    
+            <input  class="form__name_input" type='text'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+          <div class="input-block">    
+            <label class="form__name">Дата выдачи*</label>    
+            <input   v-module='form.datфTake' class="form__name_input" type='date'>    
+            <span class="form__name_error">Ошибка</span>   
+          </div>
+        </div>
+      </div>
+      <button class="buttonSubmit" type="submit">Отправить</button>
+    </form>
+    <script src="script.js"></script>    
+</body>
+</html>
