@@ -1,19 +1,22 @@
 <template>
-  <div id="app">
-    <HelloWorld/>
-  </div>
+    <div>
+      <Popup/>
+      <HelloWorld msg="Welcome to Your Vue.js App" />
+    </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-
+import Popup from './components/popup.vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Popup
   }
 }
 </script>
+
 <style>
 html{
   height: 100%;
@@ -24,9 +27,13 @@ html{
   background: linear-gradient(to right top,#65dfc9,#6cdbeb);
 }
 
-@media screen and (max-width: 536px) {
+@media screen and (max-width: 575px) {
   html{
     height: auto;
   }
-}
+          .popup{
+            height: 100%;
+            top: 0;
+        }
+    }
 </style>

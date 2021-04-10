@@ -1,4 +1,4 @@
-# formvalidate
+# valid
 
 ## Project setup
 ```

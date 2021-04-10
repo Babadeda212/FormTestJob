@@ -20,7 +20,10 @@
           </div>
           <div class="input-block">    
             <label class="form__name">Отчество</label>    
-            <input class="form__name_input" type='text' v-model="fatherName">      
+            <input class="form__name_input" type='text' v-model="fatherName"
+            :class="{invalid:($v.fatherName.$dirty && !$v.fatherName.alpha)}"
+            >
+            <span class="form__name_error" v-if='$v.fatherName.$dirty && !$v.fatherName.alpha'>Введите корректное Отчество</span>      
           </div>
           <div class="input-block">    
             <label class="form__name">Дата рождения*</label>    
@@ -68,15 +71,24 @@
         <div class="form__block_home block">
           <div class="input-block">    
             <label class="form__name">Индекс</label>    
-            <input  class="form__name_input" type='text' v-model="indexCity">    
+            <input  class="form__name_input" type='text' v-model="indexCity"
+            :class="{invalid:($v.indexCity.$dirty && !$v.indexCity.numeric)}"
+            >    
+            <span class="form__name_error" v-if='$v.indexCity.$dirty && !$v.indexCity.numeric'>Введите корректный Индекс</span>
           </div>
           <div class="input-block">    
             <label class="form__name">Страна</label>    
-            <input  class="form__name_input" type='text' v-model="counter">    
+            <input  class="form__name_input" type='text' v-model="counter"
+            :class="{invalid:($v.counter.$dirty && !$v.counter.alpha)}"
+            >
+            <span class="form__name_error" v-if='$v.counter.$dirty && !$v.counter.alpha'>Введите корректно страну</span>      
           </div>
           <div class="input-block">    
             <label class="form__name">Область</label>    
-            <input  class="form__name_input" type='text' v-model="region">    
+            <input  class="form__name_input" type='text' v-model="region"
+            :class="{invalid:($v.region.$dirty && !$v.region.alpha)}"
+            >
+            <span class="form__name_error" v-if='$v.region.$dirty && !$v.region.alpha'>Введите корректно облость</span>    
           </div>
           <div class="input-block">    
             <label class="form__name">Город*</label>    
@@ -88,7 +100,10 @@
           </div>
           <div class="input-block">    
             <label class="form__name">Улица</label>    
-            <input  class="form__name_input" type='text' v-model='street'>    
+            <input  class="form__name_input" type='text' v-model='street'
+            :class="{invalid:($v.street.$dirty && !$v.street.alpha)}"
+            >   
+             <span class="form__name_error" v-if='$v.street.$dirty && !$v.street.alpha'>Введите корректно улицу</span> 
           </div>
           <div class="input-block">    
             <label class="form__name">Дом</label>    
@@ -111,15 +126,24 @@
           </div>
           <div class="input-block">    
             <label class="form__name">Серия</label>    
-            <input  class="form__name_input" type='text' v-model="serialDok">    
+            <input  class="form__name_input" type='text' v-model="serialDok"
+            :class="{invalid:($v.serialDok.$dirty && !$v.serialDok.numeric)}"
+            >
+            <span class="form__name_error" v-if='$v.serialDok.$dirty && !$v.serialDok.numeric'>Введите корректный серийный номер</span>  
           </div>
           <div class="input-block">    
             <label class="form__name">Номер</label>    
-            <input  class="form__name_input" type='text' v-model="numberDok">      
+            <input  class="form__name_input" type='text' v-model="numberDok"
+            :class="{invalid:($v.numberDok.$dirty && !$v.numberDok.numeric)}"
+            >
+            <span class="form__name_error" v-if='$v.numberDok.$dirty && !$v.numberDok.numeric'>Введите корректный номер</span>      
           </div>
           <div class="input-block">    
             <label class="form__name">Кем выдан</label>    
-            <input  class="form__name_input" type='text' v-model="whyTake">    
+            <input  class="form__name_input" type='text' v-model="whyTake"
+            :class="{invalid:($v.whyTake.$dirty && !$v.whyTake.alpha)}"
+            >
+            <span class="form__name_error" v-if='$v.whyTake.$dirty && !$v.whyTake.alpha'>Заполните поле правильно</span>    
           </div>
           <div class="input-block">    
             <label class="form__name">Дата выдачи*</label>    
@@ -169,14 +193,24 @@ export default {
   validations:{
     nameP: {required,alpha,minLength: minLength(2)},
     surname: {required,alpha,minLength: minLength(2)},
+    fatherName:{alpha},
     date: {required},
     phone: {required,minLength: minLength(11),numeric},
     city: {required,alpha,minLength: minLength(2)},
     dateTake: {required},
-    typeDoc: {required}
+    typeDoc: {required},
+    index:{numeric},
+    counter: {alpha},
+    region: {alpha},
+    street: {alpha},
+    serialDok: {numeric},
+    numberDok: {numeric},
+    whyTake: {alpha},
+    indexCity:{numeric}
   },
   methods:{
     submitForm(){
+    const popup = document.querySelector('.popup');
     if(this.$v.$invalid){
 
       this.$v.$touch();
@@ -184,6 +218,10 @@ export default {
       return
     }
     else{
+      popup.classList.add('popup__open');
+      setTimeout(()=>{
+        popup.classList.remove('popup__open');
+      },2000);
       const formData={
         namePepol: this.nameP,
         surnamePepol: this.surname,
@@ -206,8 +244,27 @@ export default {
         whyTakePepole:this.whyTake,
         checkPepole: this.check 
       }
-      console.log(formData);
-      this.nameP = '';
+      this.nameP='';
+      this.surname='';
+      this.date='';
+      this.phone='';
+      this.city='';
+      this.dateTake='';
+      this.fatherName='';
+      this.doctor='';
+      this.groop='';
+      this.gender='';
+      this.typeDoc='';
+      this.indexCity='';
+      this.counter='';
+      this.region='';
+      this.street='';
+      this.home='';
+      this.serialDok='';
+      this.numberDok='';
+      this.whyTake='';
+      this.check='';
+      return
     }
     }
   }
@@ -231,9 +288,10 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 40px;
     background: linear-gradient(to right bottom,rgba(225,225,225,0.7),rgba(225,225,225,0.3));
     border-radius: 2rem;
+    max-width: 640px;
 }
 .form__check{
     margin: 0 0 0 4px;
@@ -245,20 +303,24 @@ export default {
 }
 .form__input{
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 .block{
-    margin-right: 10px;
+    display:flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    justify-content: center;
 }
 .input-block{
-    margin-bottom: 10px;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     height: 70px;
     width: 150px;
+    margin-right: 10px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 .form__name_error{
     color: red;
